@@ -1,0 +1,54 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevInfoVault</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- AOS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <!-- Font Awesome for icons -->
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold" data-aos="fade-down">DevInfoVault</h1>
+            <p class="mt-2 text-lg" data-aos="fade-up">Your secure, local-first vault for development secrets</p>
+        </div>
+    </header>
+
+    <section class="container mx-auto py-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div data-aos="fade-right">
+                <h2 class="text-2xl font-semibold mb-4">🚀 Purpose</h2>
+                <p>Modern development workflows require handling numerous sensitive credentials. DevInfoVault provides structured secret management, encryption, and user-based access control in a local environment.</p>
+            </div>
+            <div data-aos="fade-left">
+                <h2 class="text-2xl font-semibold mb-4">🔐 Key Features</h2>
+                <ul class="list-disc pl-6">
+                    <li>Secure Authentication</li>
+                    <li>Encrypted Secret Storage</li>
+                    <li>Organized Secret Management</li>
+                    <li>Environment-Based Configuration</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-10">
+            <a href="../pages/auth.html" class="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700" data-aos="zoom-in">Access Vault</a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-4 text-center">
+        <p>&copy; 2026 DevInfoVault. All rights reserved.</p>
+    </footer>
+
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
