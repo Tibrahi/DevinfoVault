@@ -1,54 +1,79 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevInfoVault</title>
-    <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- AOS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <!-- Font Awesome for icons -->
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+    <title>DevInfoVault | Secure Local Storage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.5; }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <header class="bg-blue-600 text-white py-6">
-        <div class="container mx-auto text-center">
-            <h1 class="text-4xl font-bold" data-aos="fade-down">DevInfoVault</h1>
-            <p class="mt-2 text-lg" data-aos="fade-up">Your secure, local-first vault for development secrets</p>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <div id="bg-canvas"></div>
+
+    <nav class="w-full py-6 px-10 flex justify-between items-center backdrop-blur-md fixed top-0 z-50">
+        <div class="text-2xl font-bold text-green-600 tracking-tighter" data-aos="fade-down">
+            <i class="fas fa-shield-alt"></i> DevInfoVault
         </div>
-    </header>
+        <a href="../pages/auth.html" class="bg-green-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-600 transition shadow-lg hover:shadow-green-200" data-aos="fade-left">
+            Launch App
+        </a>
+    </nav>
 
-    <section class="container mx-auto py-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div data-aos="fade-right">
-                <h2 class="text-2xl font-semibold mb-4">🚀 Purpose</h2>
-                <p>Modern development workflows require handling numerous sensitive credentials. DevInfoVault provides structured secret management, encryption, and user-based access control in a local environment.</p>
-            </div>
-            <div data-aos="fade-left">
-                <h2 class="text-2xl font-semibold mb-4">🔐 Key Features</h2>
-                <ul class="list-disc pl-6">
-                    <li>Secure Authentication</li>
-                    <li>Encrypted Secret Storage</li>
-                    <li>Organized Secret Management</li>
-                    <li>Environment-Based Configuration</li>
-                </ul>
-            </div>
+    <main class="container mx-auto px-6 h-screen flex flex-col justify-center items-center text-center">
+        <h1 class="text-6xl font-extrabold mb-6 leading-tight text-gray-900" data-aos="zoom-in">
+            Secure Credentials.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">Local First.</span>
+        </h1>
+        <p class="text-xl text-gray-500 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="200">
+            AES-256 Encrypted developer vault that lives in your browser. No cloud, no tracking, complete control over your API keys and secrets.
+        </p>
+        
+        <div class="flex gap-4" data-aos="fade-up" data-aos-delay="400">
+            <a href="../pages/auth.html" class="px-8 py-4 bg-green-500 text-white text-lg rounded-xl font-bold shadow-xl hover:bg-green-600 hover:-translate-y-1 transition transform">
+                Get Started
+            </a>
+            <a href="#" class="px-8 py-4 bg-white text-green-600 border-2 border-green-100 text-lg rounded-xl font-bold hover:border-green-300 transition">
+                Read Docs
+            </a>
         </div>
+    </main>
 
-        <div class="text-center mt-10">
-            <a href="../pages/auth.html" class="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700" data-aos="zoom-in">Access Vault</a>
-        </div>
-    </section>
-
-    <footer class="bg-gray-800 text-white py-4 text-center">
-        <p>&copy; 2026 DevInfoVault. All rights reserved.</p>
-    </footer>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({ duration: 1000, once: true });
+
+        // Simple Three.js Particle System
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('bg-canvas').appendChild(renderer.domElement);
+
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for(let i=0; i<1000; i++) {
+            vertices.push((Math.random() - 0.5) * 10);
+            vertices.push((Math.random() - 0.5) * 10);
+            vertices.push((Math.random() - 0.5) * 10);
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0x4ade80, size: 0.02 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+        camera.position.z = 2;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.y += 0.001;
+            points.rotation.x += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animate();
     </script>
 </body>
 </html>
